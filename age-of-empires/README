@@ -1,0 +1,47 @@
+Introduction:
+
+Hello! Thank you for taking the time to grade my final project. There have been a lot of ups and downs while working on this,
+so I hope you enjoy the final result as much as I have for the past few weeks.
+
+Overview:
+
+This is a recreation of one of my favorite games as a child, Age of Empires II. Age of Empires 2 is a strategy game set in a medieval setting
+where two players, each representing one historical country (in this case the Song Dynasty of China and the Byzantine Empire) compete against
+each other to try and take down each other’s base. This is accomplished by managing an economy, raising an army, and uses tactics and strategy
+to outplay your opponent(s). More specifically, in order to win in this game you need to either successfully take down the city that each country
+starts off with or have the other player voluntarily surrender when they believe that victory is no longer possible. You accomplish this by
+attacking the other side's defenses and other units, while using your villagers to build farms and other key buildings that improve your economy
+and allow you to produce more units. This is a game against two human players. It is a turn-based hotseat game, meaning that you and another player
+take your turn on the same computer.
+
+Design Choices:
+
+At the core of the game, I designed it so that there is a map board, a 2D array of Tiles that hold all of the units, buildings, and biomes, and a set
+of buttons on the right that allow the player to choose specific decisions, such as building a Stable over building a Tower, that would not be done easily
+with only clicking on the board. As a result, some decisions are made on the map board, some are made on the button board, and some are a combination of both.
+Moving units around is solely done on the map board, surrendering and quitting the game are done on the button board, and recruiting units and constructing
+buildings and attacking are all done via a mix of the map board and the button board.
+
+In order to create the map, I decided to have each square resemble a Tile, which is composed of either a unit or building (from now on refered to as a Controllable)
+and a Biome. The Biome is the terrain in the background, and things such as movement speed and the success of attacks are all dependent on the terrain. Every Tile has
+an instantiated Biome. However, not all Tiles have a Controllable.
+
+Movement in this game is accomplished with a recursive function that shows the maximum amount of tiles that unit can move on their given turn. This means that the unit
+will always move optimally to any of the tiles that are chosen for it to move to. The actual process of moving units around is acheived by creating a replica of the unit,
+assigning that unit to the tile, removing the old unit from the previous tile, and updating the changes graphically. The method resetToNeutral() is used after any movement
+or action to reset all of the highlighted tiles so that the board is clean again.
+
+Attacking and counterattacking are all influenced by a variety of factors. Any controllables without defense will immediately lose morale and disband. For more sturdy
+controllables, a fight breaks out between the selected attacking unit and the defending unit. The success of the attacking unit depends on a variety of factors,
+including the current morale of the attacking unit, the Biome that the defending unit is on, and what country the attacking unit is from (for instance, Castles have
+a better attack under the Byzantine Empire). The defending unit, assuming it didn't disband from the previous attack, now has an opportunity to counterattack on the same
+turn if they are in range of the attacking unit, although the attack is only half as strong as the inital attacking controllable's attack.
+
+Known Bugs:
+
+There are a few bugs that still can cause issues with the game. One bug is that the game has difficulty removing the event filters that are added on
+the tiles. This means that, since new event filters are added as the game progresses, the amount of filters grows exponentially and can make the game
+hard to run near the end of the game. Another problem is with the building mechanic: building, for instance, a Villager built by a City should have
+that Villager appear on the player's choice of tile. However, it appears on the same tile as the City itself.
+
+Hours Spent: 35
